@@ -1,0 +1,4 @@
+title: Colors
+modelClass: Maki3000\Project\Models\Color
+toolbar:
+    buttons: reorder_toolbar

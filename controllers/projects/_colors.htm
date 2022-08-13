@@ -1,0 +1,34 @@
+<?php
+    if (isset($record->basics) && count($record->basics) > 0) {
+        $projectColorMainIndex = 0;
+        foreach ($record->basics as $basic) {
+            if (isset($basic["colors"]) && count($basic["colors"]) > 0) {
+                foreach ($basic["colors"] as $color) {
+                    if (isset($color) && strlen($color) > 1) {
+                        $colorBoxMarkUp =
+                        '<span class="color-value" style="margin: 0 8px 12px 0; padding: 4px; border-radius: 4px; display: inline-block; height: 50px; width: 80px; background-color: ' . $color . '">
+                            ' . $color . '
+                        </span>';
+                        echo "<p>";
+                        echo $colorBoxMarkUp;
+                        echo "</p>";
+                    }
+                }
+            }
+        }
+    } else {
+        echo "No basics colors added.";
+    }
+?>
+
+<script>
+    if (typeof contrastingColor === "function") {
+        $(".color-value").each(function() {
+            // set font color
+            let colorValue = $(this).css("background-color");
+            colorValue = rgba2hex(colorValue).substring(1);
+            const contrastingColorValue = contrastingColor(colorValue);
+            $(this).css("color", "#" + contrastingColorValue);
+        });
+    }
+</script>

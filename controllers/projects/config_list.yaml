@@ -1,0 +1,12 @@
+list: $/maki3000/project/models/project/columns.yaml
+modelClass: Maki3000\Project\Models\Project
+title: Projects
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'maki3000/project/projects/update/:id'

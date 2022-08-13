@@ -1,0 +1,9 @@
+fields:
+    name:
+        label: 'Color Name'
+        span: full
+        type: text
+    color_value:
+        label: 'Color Value'
+        span: full
+        type: colorpicker

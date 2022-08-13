@@ -1,0 +1,10 @@
+name: Colors
+form: $/maki3000/project/models/color/fields.yaml
+modelClass: Maki3000\Project\Models\Color
+defaultRedirect: maki3000/project/colors
+create:
+    redirect: 'maki3000/project/colors/update/:id'
+    redirectClose: maki3000/project/colors
+update:
+    redirect: maki3000/project/colors
+    redirectClose: maki3000/project/colors

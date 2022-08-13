@@ -1,0 +1,6 @@
+<?php
+    if ($record->images && count($record->images) > 0) {
+        echo '<img src="' . $record->images[0]->path . '" alt="' . $record->images[0]->path_name . '" style="border-radius: 4px; height: 50px; width: 50px; object-fit: cover;">';
+    } else {
+        echo "No images added.";
+    }

@@ -1,0 +1,20 @@
+<?php
+    if (isset($record->basics) && count($record->basics) > 0) {
+        foreach ($record->basics as $basic) {
+            echo "<p>";
+            if (isset($basic["name"]) && strlen($basic["name"]) > 0) {
+                echo "Name: " . $basic["name"];
+            }
+            if (isset($basic["url"]) && strlen($basic["url"]) > 0) {
+                echo "<br>";
+                echo "URL: " . $basic["url"];
+            }
+            if (isset($basic["pop_up_counter"])) {
+                echo "<br>";
+                echo "PopUp counter: " . $basic["pop_up_counter"];
+            }
+            echo "</p>";
+        }
+    } else {
+        echo "No basics added.";
+    }

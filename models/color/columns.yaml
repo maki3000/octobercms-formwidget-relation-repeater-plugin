@@ -1,0 +1,27 @@
+columns:
+    id:
+        label: id
+        type: number
+        invisible: true
+    name:
+        label: Name
+        type: text
+        searchable: true
+        sortable: true
+    color_value:
+        label: 'Color Value'
+        type: colorpicker
+        searchable: true
+        sortable: true
+    sort_order:
+        label: sort_order
+        type: number
+        invisible: true
+    created_at:
+        label: created_at
+        type: datetime
+        invisible: true
+    updated_at:
+        label: updated_at
+        type: datetime
+        invisible: true

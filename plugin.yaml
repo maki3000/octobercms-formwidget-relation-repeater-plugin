@@ -1,0 +1,31 @@
+plugin:
+    name: 'maki3000.project::lang.plugin.name'
+    description: 'maki3000.project::lang.plugin.description'
+    author: maki3000
+    icon: oc-icon-copyright
+    homepage: ''
+permissions:
+    project:
+        tab: Project
+        label: Project
+navigation:
+    main-menu-item:
+        label: Projects
+        url: maki3000/project/projects
+        icon: icon-copyright
+        permissions:
+            - project
+        order: '520'
+        sideMenu:
+            side-menu-item2:
+                label: Projects
+                url: maki3000/project/projects
+                icon: icon-copyright
+                permissions:
+                    - project
+            side-menu-item:
+                label: Color
+                url: maki3000/project/colors
+                icon: icon-tag
+                permissions:
+                    - project

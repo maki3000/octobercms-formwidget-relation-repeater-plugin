@@ -1,0 +1,64 @@
+{% if __SELF__.projects|length %}
+
+    <ul class="plugin-list projects-list">
+        {% for project in __SELF__.projects %}
+            <li class="plugin-item project-item">
+
+                {% if project.name %}
+                    <h3 class="projet-name">
+                        {{ project.name }}
+                    </h3>
+                {% endif %}
+
+                {% if project.images|length %}
+                    <ul class="projet-iamges-list">
+                        {% for image in project.images %}
+                            <li class="project-image-item">
+
+                                <img
+                                    src="{{ image.path }}"
+                                    {{(image.title ? 'title="' ~ image.title ~ '"' : '')|raw}}
+                                    {{(image.description ? 'alt="' ~ image.description ~ '"' : '')|raw}}
+                                    class="project-image"
+                                >
+
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% if project.content %}
+                    <div class="projet-content">
+                        {{ project.content|raw }}
+                    </div>
+                {% endif %}
+
+                {% if project.basics|length %}
+                    <ul class="projet-basics-list">
+                        {% for basic in project.basics %}
+                            <li class="project-basics-item">
+
+                                {% if basic.name and basic.url %}
+
+                                    {% if basic.colors|length %}
+                                        {% set randomizedColors = basic.colors|shuffle %}
+                                        {% set randomizedColor = randomizedColors|first %}
+                                    {% endif %}
+
+                                    <a class="projet-basic-link" href="{{ basic.url }}" {% if randomizedColor %}style="color: {{ randomizedColor }};"{% endif %} {% if basic.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                                        {{ basic.name }}
+                                    </a>
+                                {% endif %}
+
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+            </li>
+        {% endfor %}
+    </ul>
+
+{% else %}
+    <p class="empty-message">No projects added.</p>
+{% endif %}

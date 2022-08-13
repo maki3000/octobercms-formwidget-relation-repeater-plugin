@@ -1,0 +1,17 @@
+.projectcolor-container {
+    display: flex;
+    flex-direction: column;
+}
+.project-color__entry {
+    display: flex;
+}
+
+.project_color-hidden {
+    visibility: hidden;
+}
+.projectcolor-container-inner .custom-checkbox input[type=checkbox] + label:not(.project-color--checked)::before {
+    background-position: -19px 0;
+}
+.projectcolor-container-inner .custom-checkbox input[type=checkbox] + label.project-color--checked::before {
+    background-position: 0 0;
+}

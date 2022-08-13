@@ -1,0 +1,10 @@
+name: Projects
+form: $/maki3000/project/models/project/fields.yaml
+modelClass: Maki3000\Project\Models\Project
+defaultRedirect: maki3000/project/projects
+create:
+    redirect: 'maki3000/project/projects/update/:id'
+    redirectClose: maki3000/project/projects
+update:
+    redirect: maki3000/project/projects
+    redirectClose: maki3000/project/projects

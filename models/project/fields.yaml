@@ -1,0 +1,58 @@
+fields:
+    name:
+        label: Name
+        span: auto
+        type: text
+    slug:
+        label: Slug
+        span: auto
+        readOnly: 1
+        preset:
+            field: name
+            type: slug
+        type: text
+    images:
+        label: Images
+        span: full
+        mode: image
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        type: fileupload
+    content:
+        label: Content
+        size: huge
+        span: full
+        type: richeditor
+    basics:
+        label: Basics
+        prompt: 'New Item'
+        style: default
+        span: full
+        cssClass: basics-repeater
+        type: repeater
+        form:
+            fields:
+                name:
+                    label: Name
+                    span: left
+                    type: text
+                url:
+                    label: URL
+                    span: right
+                    type: text
+                new_window:
+                    label: New Window
+                    span: left
+                    type: switch
+                pop_up_counter:
+                    label: PopUp counter
+                    span: right
+                    type: number
+                    attributes:
+                        min: 0
+                _project_color:
+                    label: Color
+                    type: projectcolor
+                    span: full

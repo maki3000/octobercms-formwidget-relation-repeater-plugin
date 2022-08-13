@@ -1,0 +1,46 @@
+<div class="project-color-partial">
+
+    <?php
+        // set color values hidden input to get and fill values in project.js
+        if (isset($renderColorValuesArray) && count($renderColorValuesArray) > 0) {
+            foreach ($renderColorValuesArray as $uniqueKey => $renderColorValues) {
+                echo '<input class="project-color-values" type="hidden" name="project-color-values" value=\'' . json_encode($renderColorValues) . '\' />';
+            }
+        }
+
+        if (isset($renderColorsArray) && count($renderColorsArray)) {
+            echo '<div class="projectcolor-container">';
+            $renderColorsArrayIndex = 0;
+            foreach ($renderColorsArray as $key => $color_entry) {
+                if ($update === true) {
+                    echo '<input class="project-color-update" type="hidden" name="project-color-update" value="true" />';
+                }
+
+                echo '<div id="projectcolor-container_value-' . $color_entry['color_value'] . '" class="projectcolor-container-inner projectcolor-container_id-' . $color_entry['id'] . '">';
+                echo '<input class="project-color-checkbox-check" type="hidden" data-name="' . $color_entry['field_name'] . '" />';
+
+                $inputCheckboxMarkup = '<input class="project-color-checkbox" type="checkbox" id="' . $color_entry['field_name'] . '" name="' . $color_entry['field_name'] . '" value="0" />';
+                $inputCheckboxMarkupHidden = '<input class="project-color-checkbox" type="hidden" name="' . $color_entry['field_name'] . '" value="0" />';
+
+                echo '
+                        <div class="project-color__entry">
+                            <span class="color-value" style="margin: 0 8px 12px 0; padding: 4px; border-radius: 4px; display: inline-block; height: 50px; width: 80px; background-color: ' . $color_entry['color_value'] . '">
+                                ' . $color_entry['color_value'] . '
+                            </span>
+                            <div class="checkbox custom-checkbox">
+                                ' . $inputCheckboxMarkupHidden . '
+                                ' . $inputCheckboxMarkup . '
+                                <label for="' . $color_entry['field_name'] . '" class="storm-icon-pseudo">' . $color_entry['name'] . '</label>
+                            </div>
+                        </div>
+                    ';
+
+                echo '</div>';
+                $renderColorsArrayIndex++;
+            }
+            echo '</div>';
+        } else {
+            echo "No colors found.";
+        }
+    ?>
+</div>
