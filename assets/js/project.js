@@ -51,11 +51,14 @@ const setSaveValues = async function($repeaterItemInner = null, context = null) 
             // set right name for checkbox, label and hidden input to save it right
             const $checkbox = $(this).find(".project-color-checkbox");
             const checkboxName = $checkbox.prop("name");
+            const firstCheckboxNameNumber = checkboxName.match(/[(0-9).+?]/);
+            const isCreate = firstCheckboxNameNumber[0] === "0" ? true : false;
             const checkboxNameSplittedArray = checkboxName.split("[0]");
             let checkboxNewName = "";
             const $thisRepeaterItem = $(this).closest(".field-repeater-item");
             const repeaterIndex = $thisRepeaterItem.index();
-            if (checkboxNameSplittedArray.length === 3) {
+
+            if (checkboxNameSplittedArray.length === 3 || isCreate) {
                 checkboxNewName = checkboxNameSplittedArray[0] + "[0]" + checkboxNameSplittedArray[1] + "[" + repeaterIndex + "]" + checkboxNameSplittedArray[2];
             } else {
                 checkboxNewName = checkboxNameSplittedArray[0] + "[" + repeaterIndex + "]" + checkboxNameSplittedArray[1];
