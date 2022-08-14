@@ -36,9 +36,26 @@ class Project extends Model
      * @var array Validation rules
      */
     public $rules = [
-        "name"      => "string|required",
-        "slug"      => "string|required",
+        "name"          => "string|required",
+        "slug"          => "string|required",
     ];
+
+    public function beforeValidate()
+    {
+        $newBasics = $this->basics;
+        if (isset($newBasics) && count($newBasics) > 0) {
+            foreach ($newBasics as $basicKey => $basic) {
+                unset($basic["_project_color"]);
+                // silly validation for repeater
+                if (isset($basic['name']) && strlen($basic['name']) === 0) {
+                    throw new \ValidationException(['basics.'.$basicKey.'.name' => 'Basics name is required.']);
+                }
+                if (isset($basic['url']) && strlen($basic['url']) === 0) {
+                    throw new \ValidationException(['basics.'.$basicKey.'.url' => 'Basics url is required.']);
+                }
+            }
+        }
+    }
 
     public function beforeSave()
     {
