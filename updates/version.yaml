@@ -6,6 +6,3 @@
 1.0.3:
     - 'Created table maki3000_project_color'
     - builder_table_create_maki3000_project_color.php
-1.0.4:
-    - 'Created table maki3000_project_project_color'
-    - builder_table_create_maki3000_project_project_color.php
