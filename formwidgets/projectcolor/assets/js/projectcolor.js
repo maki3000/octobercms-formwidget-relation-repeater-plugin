@@ -1,7 +1,5 @@
 $(function() {
 
-    console.log("init by formwidget");
-
     // set repeater save values on init
     if (typeof setSaveValues === "function") {
         setSaveValues();
