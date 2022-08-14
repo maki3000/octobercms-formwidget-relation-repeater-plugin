@@ -2,29 +2,79 @@
 
     <ul class="plugin-list projects-list">
         {% for project in __SELF__.projects %}
-            <li class="plugin-item project-item">
+
+            {% if project.images|length %}
+                {% set randomizedImages = project.images|shuffle %}
+                {% set randomizedImage = randomizedImages|first %}
+                {% put styles %}
+                    <style>
+                        #project-item-id__{{ loop.index }} {
+                            position: relative;
+                        }
+                        #project-item-id__{{ loop.index }}::after {
+                            content: "";
+                            background: url({{ randomizedImage.path }});
+                            top: 0;
+                            left: 0;
+                            bottom: 0;
+                            right: 0;
+                            position: absolute;
+                            z-index: 1;
+                        }
+                    </style>
+                {% endput %}
+            {% endif %}
+
+            {% if project.opacity %}
+                {% put scripts %}
+                    <script>
+                        const hexAlphaValue_{{ loop.index }} = addAlpha('{{ project.bg_color }}', {{ project.opacity }});
+                        $('#project-item-id__{{ loop.index }}').css('background-color', hexAlphaValue_{{ loop.index }});
+                    </script>
+                {% endput %}
+                {% put styles %}
+                    <style>
+                        #project-item-id__{{ loop.index }}::after {
+                            opacity: {{ project.opacity }};
+                        }
+                    </style>
+                {% endput %}
+            {% elseif project.bg_color %}
+                {% put styles %}
+                    <style>
+                        #project-item-id__{{ loop.index }} {
+                            background-color: {{ project.bg_color }};
+                        }
+                    </style>
+                {% endput %}
+            {% endif %}
+
+            {% if project.border_width %}
+                {% put styles %}
+                    <style>
+                        #project-item-id__{{ loop.index }} {
+                            border-style: solid;
+                            border-width: {{ project.border_width }};
+                        }
+                    </style>
+                {% endput %}
+            {% endif %}
+            {% if project.border_color %}
+                {% put styles %}
+                    <style>
+                        #project-item-id__{{ loop.index }} {
+                            border-color: {{ project.border_color }};
+                        }
+                    </style>
+                {% endput %}
+            {% endif %}
+
+            <li id="project-item-id__{{ loop.index }}" class="plugin-item project-item">
 
                 {% if project.name %}
                     <h3 class="projet-name">
                         {{ project.name }}
                     </h3>
-                {% endif %}
-
-                {% if project.images|length %}
-                    <ul class="projet-iamges-list">
-                        {% for image in project.images %}
-                            <li class="project-image-item">
-
-                                <img
-                                    src="{{ image.path }}"
-                                    {{(image.title ? 'title="' ~ image.title ~ '"' : '')|raw}}
-                                    {{(image.description ? 'alt="' ~ image.description ~ '"' : '')|raw}}
-                                    class="project-image"
-                                >
-
-                            </li>
-                        {% endfor %}
-                    </ul>
                 {% endif %}
 
                 {% if project.content %}
@@ -43,6 +93,8 @@
                                     {% if basic.colors|length %}
                                         {% set randomizedColors = basic.colors|shuffle %}
                                         {% set randomizedColor = randomizedColors|first %}
+                                    {% else %}
+                                        {% set randomizedColor = null %}
                                     {% endif %}
 
                                     <a class="projet-basic-link" href="{{ basic.url }}" {% if randomizedColor %}style="color: {{ randomizedColor }};"{% endif %} {% if basic.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}>
