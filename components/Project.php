@@ -14,6 +14,8 @@ class Project extends \Cms\Classes\ComponentBase
 
     public function onRun()
     {
+        $this->addJs("components/assets/js/project.js");
+
         $this->page['projects'] = $this->projects();
     }
 
@@ -22,7 +24,7 @@ class Project extends \Cms\Classes\ComponentBase
         $projects = ProjectModel::get();
         $projectsReturnArray = [];
 
-        if (isset($projects) && count($projects) > 0) {
+        if (isset($projects) && $projects->count() > 0) {
             $projectIndex = 0;
             foreach ($projects as $projectKey => $project) {
                 if (isset($project["basics"]) && count($project["basics"]) > 0) {
@@ -32,7 +34,6 @@ class Project extends \Cms\Classes\ComponentBase
 
                     $basicIndex = 0;
                     foreach ($basics as $basicKey => $basic) {
-                        //dd($basic["colors"]);
                         if (isset($basic["colors"]) && count($basic["colors"]) > 0) {
                             $basicsOnlyValues = array_filter($basic['colors'], function($value) {
                                 return $value !== '0';
@@ -47,6 +48,11 @@ class Project extends \Cms\Classes\ComponentBase
                     $projectsReturnArray[$projectIndex] = array(
                         ...$project->toArray(),
                         'basics' => $newBasics,
+                        "images" => $project["images"]
+                    );
+                } else {
+                    $projectsReturnArray[$projectIndex] = array(
+                        ...$project->toArray(),
                         "images" => $project["images"]
                     );
                 }
