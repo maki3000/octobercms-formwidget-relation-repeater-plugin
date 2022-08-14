@@ -20,6 +20,27 @@ fields:
             mode: crop
             extension: auto
         type: fileupload
+    opacity:
+        label: Image/Background-color opacity
+        span: left
+        type: number
+        attributes:
+            min: 0.0
+            max: 1.0
+    bg_color:
+        label: Background color
+        span: right
+        type: colorpicker
+    border_width:
+        label: Border with
+        span: left
+        type: number
+        attributes:
+            min: 0
+    border_color:
+        label: Border color
+        span: right
+        type: colorpicker
     content:
         label: Content
         size: huge
@@ -38,14 +59,17 @@ fields:
                     label: Name
                     span: left
                     type: text
+                    required: 1
                 url:
                     label: URL
                     span: right
                     type: text
+                    required: 1
                 new_window:
                     label: New Window
                     span: left
                     type: switch
+                    default: 1
                 pop_up_counter:
                     label: PopUp counter
                     span: right
