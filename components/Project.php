@@ -15,13 +15,15 @@ class Project extends \Cms\Classes\ComponentBase
     public function onRun()
     {
         $this->addJs("components/assets/js/project.js");
-
+        $this->addCss("components/assets/css/project.css");
         $this->page['projects'] = $this->projects();
     }
 
     public function projects()
     {
-        $projects = ProjectModel::get();
+        $projects = ProjectModel::orderBy('sort_order', 'ASC')
+            ->where('published', 1)
+            ->get();
         $projectsReturnArray = [];
 
         if (isset($projects) && $projects->count() > 0) {

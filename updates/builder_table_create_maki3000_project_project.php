@@ -19,6 +19,7 @@ class BuilderTableCreateMaki3000ProjectProject extends Migration
             $table->string('border_color')->nullable();
             $table->text('content')->nullable();
             $table->text('basics')->nullable();
+            $table->boolean('published');
             $table->integer('sort_order')->unsigned()->default(0);
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

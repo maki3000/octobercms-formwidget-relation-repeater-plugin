@@ -15,3 +15,7 @@
 .projectcolor-container-inner .custom-checkbox input[type=checkbox] + label.project-color--checked::before {
     background-position: 0 0;
 }
+
+.switch-height {
+    min-height: 72px;
+}

@@ -6,18 +6,18 @@ use BackendMenu;
 class Colors extends Controller
 {
     public $implement = [        'Backend\Behaviors\ListController',        'Backend\Behaviors\FormController',        'Backend\Behaviors\ReorderController'    ];
-    
+
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
     public $reorderConfig = 'config_reorder.yaml';
 
     public $requiredPermissions = [
-        'project' 
+        'project'
     ];
 
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Maki3000.Project', 'main-menu-item', 'side-menu-item');
+        BackendMenu::setContext('Maki3000.Project', 'projects', 'color');
     }
 }

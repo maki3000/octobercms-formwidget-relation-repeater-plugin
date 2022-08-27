@@ -40,6 +40,32 @@ class Project extends Model
         "slug"          => "string|required",
     ];
 
+    public function getFontFamilyOptions()
+    {
+        return [
+            'Helvetica, sans-serif' => 'Helvetica, sans-serif',
+            'Arial, sans-serif' => 'Arial, sans-serif',
+            'Arial Black, sans-serif' => 'Arial Black, sans-serif',
+            'Verdana, sans-serif' => 'Verdana, sans-serif',
+            'Tahoma, sans-serif' => 'Tahoma, sans-serif',
+            'Trebuchet MS, sans-serif' => 'Trebuchet MS, sans-serif',
+            'Impact, sans-serif' => 'Impact, sans-serif',
+            'Gill Sans, sans-serif' => 'Gill Sans, sans-serif',
+            'Times New Roman, serif' => 'Times New Roman, serif',
+            'Georgia, serif' => 'Georgia, serif',
+            'Palatino, serif' => 'Palatino, serif',
+            'Baskerville, serif' => 'Baskerville, serif',
+            'Andalé Mono, monospace' => 'Andalé Mono, monospace',
+            'Courier, monospace' => 'Courier, monospace',
+            'Lucida, monospace',
+            'Lucida, monospace' => 'Monaco, monospace',
+            'Bradley Hand, cursive' => 'Bradley Hand, cursive',
+            'Brush Script MT, cursive' => 'Brush Script MT, cursive',
+            'Luminari, fantasy' => 'Luminari, fantasy',
+            'Comic Sans MS, cursive' => 'Comic Sans MS, cursive',
+        ];
+    }
+
     public function beforeValidate()
     {
         $newBasics = $this->basics;
@@ -81,6 +107,12 @@ class Project extends Model
                 }
                 if (isset($basicsArray["pop_up_counter"])) {
                     $newBasics[$basicsArrayIndex]["pop_up_counter"] = $basicsArray["pop_up_counter"];
+                }
+                if (isset($basicsArray["font_size"])) {
+                    $newBasics[$basicsArrayIndex]["font_size"] = $basicsArray["font_size"];
+                }
+                if (isset($basicsArray["font_family"])) {
+                    $newBasics[$basicsArrayIndex]["font_family"] = $basicsArray["font_family"];
                 }
                 // set _project_color to save it in afterSave
                 if (isset($basicsArray["_project_color"])) {

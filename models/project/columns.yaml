@@ -33,6 +33,11 @@ columns:
         type: partial
         searchable: false
         sortable: false
+    published:
+        label: published
+        type: switch
+        searchable: true
+        sortable: true
     sort_order:
         label: sort_order
         type: number

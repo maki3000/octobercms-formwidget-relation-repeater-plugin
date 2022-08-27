@@ -70,8 +70,19 @@ fields:
                     span: left
                     type: switch
                     default: 1
+                    cssClass: switch-height
                 pop_up_counter:
                     label: PopUp counter
+                    span: right
+                    type: number
+                    attributes:
+                        min: 0
+                font_family:
+                    label: Font family
+                    span: left
+                    type: dropdown
+                font_size:
+                    label: Font size
                     span: right
                     type: number
                     attributes:
@@ -80,3 +91,8 @@ fields:
                     label: Color
                     type: projectcolor
                     span: full
+    published:
+        label: Published
+        span: full
+        type: switch
+        default: 1
