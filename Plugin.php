@@ -19,42 +19,6 @@ class Plugin extends PluginBase
         });
     }
 
-    public function registerNavigation()
-    {
-        return [
-            'projects' => [
-                'label'         => 'Projects',
-                'icon'          => 'icon-copyright',
-                'code'          => 'projects',
-                'owner'         => 'Maki.Project',
-                'url'           => \Backend::url('maki3000/project/projects'),
-                'permissions'   => ['project'],
-                'order'         => '510',
-                'sideMenu'      => [
-                    'project' => [
-                        'label'         => 'Projects',
-                        'icon'          => 'icon-copyright',
-                        'code'          => 'project',
-                        'owner'         => 'Maki.Project',
-                        'url'           => \Backend::url('maki3000/project/projects'),
-                        'permissions'   => ['project'],
-                        'attributes'    => [
-                            'data-turbo' => 'false',
-                        ],
-                    ],
-                    'color' => [
-                        'label' => 'Colors',
-                        'icon'  => 'icon-tag',
-                        'code'  => 'color',
-                        'owner' => 'Maki.Project',
-                        'url'   => \Backend::url('maki3000/project/colors'),
-                        'permissions'   => ['project'],
-                    ]
-                ]
-            ]
-        ];
-    }
-
     public function registerComponents()
     {
         return [

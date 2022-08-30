@@ -13,10 +13,16 @@ class BuilderTableCreateMaki3000ProjectProject extends Migration
             $table->increments('id')->unsigned();
             $table->string('name');
             $table->string('slug');
+            $table->boolean('show_name');
+            $table->string('font_color')->nullable();
+            $table->string('font_family')->nullable();
+            $table->integer('font_size')->unsigned()->nullable();
             $table->float('opacity', 2, 1)->nullable();
             $table->string('bg_color')->nullable();
             $table->integer('border_width')->unsigned()->nullable();
             $table->string('border_color')->nullable();
+            $table->string('padding')->nullable();
+            $table->string('margin')->nullable();
             $table->text('content')->nullable();
             $table->text('basics')->nullable();
             $table->boolean('published');

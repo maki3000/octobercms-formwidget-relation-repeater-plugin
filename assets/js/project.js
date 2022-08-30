@@ -1,3 +1,6 @@
+// global CONSTANTS
+const TIMEOUT_WAIT = 350;
+
 const waitForElement = function(selector) {
     return new Promise(resolve => {
         const waitTimeout = setTimeout(() => {
@@ -5,7 +8,7 @@ const waitForElement = function(selector) {
                 clearTimeout(waitTimeout);
                 return resolve(document.querySelectorAll(selector));
             }
-        }, 250);
+        }, TIMEOUT_WAIT);
     });
 };
 
@@ -40,7 +43,7 @@ const setSaveValues = async function($repeaterItemInner = null, context = null) 
     let $this;
     if ($repeaterItemInner) {
         $this = $repeaterItemInner;
-    } else if (context === "PerformanceObserver") {
+    } else if (context === 'editItem') {
         $this = await getProjectBasicsThis();
     } else {
         $this = $(".projectcolor-container-inner");
@@ -50,35 +53,20 @@ const setSaveValues = async function($repeaterItemInner = null, context = null) 
 
             // set right name for checkbox, label and hidden input to save it right
             const $checkbox = $(this).find(".project-color-checkbox");
-            const checkboxName = $checkbox.prop("name");
-            const firstCheckboxNameNumber = checkboxName.match(/[(0-9).+?]/);
-            const isCreate = firstCheckboxNameNumber[0] === "0" ? true : false;
-            const checkboxNameSplittedArray = checkboxName.split("[0]");
-            let checkboxNewName = "";
             const $thisRepeaterItem = $(this).closest(".field-repeater-item");
+
             const repeaterIndex = $thisRepeaterItem.index();
+            const checkboxName = $checkbox.prop("name");
 
-            if (checkboxNameSplittedArray.length === 3 || isCreate) {
-                checkboxNewName = checkboxNameSplittedArray[0] + "[0]" + checkboxNameSplittedArray[1] + "[" + repeaterIndex + "]" + checkboxNameSplittedArray[2];
-            } else {
-                checkboxNewName = checkboxNameSplittedArray[0] + "[" + repeaterIndex + "]" + checkboxNameSplittedArray[1];
-            }
+            const checkboxNameNumbers = checkboxName.match(/[[(0-9).]+?]/g);
 
-            const $checkHiddenCheckbox = $(this).find(".project-color-checkbox-check");
-            $checkHiddenCheckbox.prop("name", checkboxNewName);
-            const checkCheckboxName = $checkHiddenCheckbox.prop("name").split("[");
+            let checkCheckboxName = "";
+            checkCheckboxName = 'Project[basics]' + checkboxNameNumbers[0] + '[_project_color]' + '[' + repeaterIndex + ']' + checkboxNameNumbers[2];
 
-            let skipForAlreadySet = false;
-            const lastNameNumberregex = /[(1-9)]/g;
-            const thisLastNameNumberArray = $checkbox.prop("name").match(lastNameNumberregex);
-            if (thisLastNameNumberArray.length === 1 && parseInt(thisLastNameNumberArray[0]) !== (index + 1)) {
-                skipForAlreadySet = true;
-            }
-
-            if (checkCheckboxName && checkCheckboxName?.length <= 6 && !skipForAlreadySet) {
+            if (checkCheckboxName) {
                 const $label = $(this).find(".storm-icon-pseudo");
-                $checkbox.prop("name", checkboxNewName).prop("id", checkboxNewName);
-                $label.prop("for", checkboxNewName).prop("id", checkboxNewName);
+                $checkbox.prop("name", checkCheckboxName).prop("id", checkCheckboxName);
+                $label.prop("for", checkCheckboxName).prop("id", checkCheckboxName);
                 if ($checkbox.is(":checked")) {
                     $label.addClass("project-color--checked");
                 }
@@ -153,36 +141,27 @@ const setColors = async function($repeaterItemInner = null, context) {
     }
 }
 
+// on navigate (page rendered)
+addEventListener('page:render', function(event, context, data, status) {
+    if (
+        event.target?.location?.pathname.includes('/backend/maki3000/project/projects/create') ||
+        event.target?.location?.pathname.includes('/backend/maki3000/project/projects/update')
+    ) {
+        setSaveValues(null);
+        setValues(null);
+        setColors(null);
+    }
+});
+
 $(function() {
 
-    // on navigate and on add new item click
-    function onRequestsObserved(batch) {
-        const observerEntries = {...batch.getEntries()};
-        let returnMap = false;
-        Object.entries(observerEntries).map((observerEntryArray, indexArray) => {
-            observerEntryArray.map((observerEntry, index) => {
-                if (!returnMap && typeof observerEntry === "object") {
-                    if (observerEntry.initiatorType === "xmlhttprequest" && observerEntry.name.includes("maki3000/project")) {
-                        console.log("init with PerformanceObserver");
-                        const context = "PerformanceObserver";
-                        setSaveValues(null, context);
-                        setValues(null, context);
-                        setColors(null, context);
-                        returnMap = true;
-                    }
-                }
-            });
-        });
-    }
-    const requestObserver = new PerformanceObserver(onRequestsObserved);
-    requestObserver.observe({ entryTypes: ["resource", "element", "event", "layout-shift"] });
-
     // set new repeater field ajax success listener
-    $(document).ajaxSuccess(function(event, context, data, status) {
+    $(document).on('ajaxSuccess', function(event, context, data, status) {
         if (context.handler === "formBasics::onAddItem") {
             const newAddedRepeater = $(event.target).find(".field-repeater-item").last();
             let repeaterIndex = -1;
             let $thisRepeater = null;
+            console.log({newAddedRepeater});
             if (typeof newAddedRepeater === "object" && newAddedRepeater.length === 1) {
                 repeaterIndex = $(newAddedRepeater[0]).index();
                 $thisRepeater = $(".field-repeater-item").eq(repeaterIndex);
@@ -190,6 +169,14 @@ $(function() {
             }
             setSaveValues($thisRepeaterInner);
             setColors($thisRepeaterInner);
+        }
+        // TODO: get move item
+        if (
+            context.handler === 'formBasics::onRemoveItem' ||
+            context.handler === 'formBasics::onDuplicateItem'
+        ) {
+            const context = 'editItem';
+            setSaveValues(null, context);
         }
     });
 

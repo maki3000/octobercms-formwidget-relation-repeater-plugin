@@ -1,8 +1,13 @@
 .project-container {
     position: relative;
-    z-index: 10;
+    z-index: 500;
 }
 .projet-basics-list {
     position: relative;
-    z-index: 1000;
+    z-index: 10;
+}
+.projet-name,
+.projet-content {
+    position: relative;
+    z-index: 10;
 }

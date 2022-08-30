@@ -11,6 +11,25 @@ fields:
             field: name
             type: slug
         type: text
+    show_name:
+        label: Show name
+        span: full
+        type: switch
+        default: 1
+    font_color:
+        label: Font color
+        span: full
+        type: colorpicker
+    font_family:
+        label: Font family
+        span: left
+        type: dropdown
+    font_size:
+        label: Font size
+        span: right
+        type: number
+        attributes:
+            min: 0
     images:
         label: Images
         span: full
@@ -22,25 +41,35 @@ fields:
         type: fileupload
     opacity:
         label: Image/Background-color opacity
-        span: left
+        span: full
         type: number
         attributes:
             min: 0.0
             max: 1.0
     bg_color:
         label: Background color
-        span: right
+        span: full
         type: colorpicker
     border_width:
         label: Border with
-        span: left
+        span: full
         type: number
         attributes:
             min: 0
     border_color:
         label: Border color
-        span: right
+        span: full
         type: colorpicker
+    padding:
+        label: Padding
+        span: left
+        type: text
+        commentAbove: As a string with px
+    margin:
+        label: Margin
+        span: right
+        type: text
+        commentAbove: As a string with px
     content:
         label: Content
         size: huge

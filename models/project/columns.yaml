@@ -34,22 +34,22 @@ columns:
         searchable: false
         sortable: false
     published:
-        label: published
+        label: Published
         type: switch
         searchable: true
         sortable: true
     sort_order:
-        label: sort_order
+        label: Sort order
         type: number
         searchable: false
         invisible: true
     created_at:
-        label: created_at
+        label: Created at
         type: datetime
         searchable: false
         invisible: true
     updated_at:
-        label: updated_at
+        label: Updated at
         type: datetime
         searchable: false
         invisible: true

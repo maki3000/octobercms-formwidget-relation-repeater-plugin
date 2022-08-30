@@ -58,7 +58,7 @@
                         <style>
                             #project-item-id__{{ project.slug }} {
                                 border-style: solid;
-                                border-width: {{ project.border_width }};
+                                border-width: {{ project.border_width }}px;
                             }
                         </style>
                     {% endput %}
@@ -73,64 +73,127 @@
                     {% endput %}
                 {% endif %}
 
+                {% if project.padding %}
+                    {% put styles %}
+                        <style>
+                            #project-item-id__{{ project.slug }} {
+                                padding: {{ project.padding }};
+                            }
+                        </style>
+                    {% endput %}
+                {% endif %}
+                {% if project.margin %}
+                    {% put styles %}
+                        <style>
+                            #project-item-id__{{ project.slug }} {
+                                margin: {{ project.margin }};
+                            }
+                        </style>
+                    {% endput %}
+                {% endif %}
+
                 <li id="project-item-id__{{ project.slug }}" class="plugin-item project-item">
 
-                    {% if project.name %}
-                        <h3 class="projet-name">
-                            {{ project.name }}
-                        </h3>
+                    {% if project.padding %}
+                        <input type="hidden" class="project-item-padding-hidden" name="project-item-padding-hidden" value="{{ project.padding }}">
+                    {% endif %}
+                    {% if project.margin %}
+                        <input type="hidden" class="project-item-margin-hidden" name="project-item-margin-hidden" value="{{ project.margin }}">
                     {% endif %}
 
-                    {% if project.content %}
-                        <div class="projet-content">
-                            {{ project.content|raw }}
-                        </div>
-                    {% endif %}
+                    <div class="project-item-inner-container">
 
-                    {% if project.basics|length %}
-                        <ul class="projet-basics-list">
-                            {% for basic in project.basics %}
+                        {% if project.name and project.show_name %}
 
-                                {% if basic.font_size %}
-                                    {% put styles %}
-                                        <style>
-                                            #project-item-id__{{ loop.index }}-{{ project.slug }} {
-                                                font-size: {{ basic.font_size }}px;
-                                            }
-                                        </style>
-                                    {% endput %}
-                                {% endif %}
+                            {% if project.font_color %}
+                                {% put styles %}
+                                    <style>
+                                        #project-item-id__{{ project.slug }} .projet-name {
+                                            color: {{ project.font_color }};
+                                        }
+                                    </style>
+                                {% endput %}
+                            {% endif %}
+                            {% if project.font_family %}
+                                {% put styles %}
+                                    <style>
+                                        #project-item-id__{{ project.slug }} .projet-name {
+                                            font-family: {{ project.font_family }};
+                                        }
+                                    </style>
+                                {% endput %}
+                            {% endif %}
+                            {% if project.font_size %}
+                                {% put styles %}
+                                    <style>
+                                        #project-item-id__{{ project.slug }} .projet-name {
+                                            font-size: {{ project.font_size }};
+                                        }
+                                    </style>
+                                {% endput %}
+                            {% endif %}
 
-                                {% if basic.font_family %}
-                                    {% put styles %}
-                                        <style>
-                                            #project-item-id__{{ loop.index }}-{{ project.slug }} {
-                                                font-family: {{ basic.font_family }};
-                                            }
-                                        </style>
-                                    {% endput %}
-                                {% endif %}
+                            <h3 class="projet-name">
+                                {{ project.name }}
+                            </h3>
+                        {% endif %}
 
-                                <li id="project-item-id__{{ loop.index }}-{{ project.slug }}" class="project-basics-item">
+                        {% if project.content %}
+                            <div class="projet-content">
+                                {{ project.content|raw }}
+                            </div>
+                        {% endif %}
 
-                                    {% if basic.name and basic.url %}
+                        {% if project.basics|length %}
+                            <ul class="projet-basics-list">
+                                {% for basic in project.basics %}
 
-                                        {% if basic.colors|length %}
-                                            {% set randomizedColors = basic.colors|shuffle %}
-                                            {% set randomizedColor = randomizedColors|first %}
-                                        {% else %}
-                                            {% set randomizedColor = null %}
-                                        {% endif %}
-
-                                        <a class="projet-basic-link" href="{{ basic.url }}" {% if randomizedColor %}style="color: {{ randomizedColor }};"{% endif %} {% if basic.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}>
-                                            {{ basic.name }}
-                                        </a>
+                                    {% if basic.pop_up_counter %}
+                                        <input type="hidden" class="projet-basic-pop-up-counter" name="projet-basic-pop-up-counter" value="{{ basic.pop_up_counter }}">
                                     {% endif %}
 
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
+                                    {% if basic.font_size %}
+                                        {% put styles %}
+                                            <style>
+                                                #project-item-id__{{ loop.index }}-{{ project.slug }} {
+                                                    font-size: {{ basic.font_size }}px;
+                                                }
+                                            </style>
+                                        {% endput %}
+                                    {% endif %}
+
+                                    {% if basic.font_family %}
+                                        {% put styles %}
+                                            <style>
+                                                #project-item-id__{{ loop.index }}-{{ project.slug }} {
+                                                    font-family: {{ basic.font_family }};
+                                                }
+                                            </style>
+                                        {% endput %}
+                                    {% endif %}
+
+                                    <li id="project-item-id__{{ loop.index }}-{{ project.slug }}" class="project-basics-item">
+
+                                        {% if basic.name and basic.url %}
+
+                                            {% if basic.colors|length %}
+                                                {% set randomizedColors = basic.colors|shuffle %}
+                                                {% set randomizedColor = randomizedColors|first %}
+                                            {% else %}
+                                                {% set randomizedColor = null %}
+                                            {% endif %}
+
+                                            <a class="{% if basic.pop_up_counter %}projet-basic-pop-up {% endif %}projet-basic-link" href="{{ basic.url }}" {% if randomizedColor %}style="color: {{ randomizedColor }};"{% endif %} {% if basic.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                                                {{ basic.name }}
+                                            </a>
+                                        {% endif %}
+
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+
+                    </div>
 
                 </li>
             {% endfor %}

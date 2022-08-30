@@ -8,3 +8,24 @@ permissions:
     project:
         tab: Project
         label: Project
+navigation:
+    projects:
+        label: Projects
+        url: maki3000/project/projects
+        icon: icon-copyright
+        permissions:
+            - project
+        order: '510'
+        sideMenu:
+            project:
+                label: Projects
+                url: maki3000/project/projects
+                icon: icon-copyright
+                permissions:
+                    - project
+            color:
+                label: Color
+                url: maki3000/project/colors
+                icon: icon-tag
+                permissions:
+                    - project
