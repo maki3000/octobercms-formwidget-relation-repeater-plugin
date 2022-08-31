@@ -25,7 +25,7 @@ class Color extends Model
         'color_value'   => 'string|required',
     ];
 
-    public function beforeDelete()
+    public function afterDelete()
     {
         // also delete colors in project basics
         $projectModel = new ProjectModel;
