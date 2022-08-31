@@ -36,6 +36,7 @@ class Project extends \Cms\Classes\ComponentBase
 
                     $basicIndex = 0;
                     foreach ($basics as $basicKey => $basic) {
+                        $basicsOnlyValues = [];
                         if (isset($basic["colors"]) && count($basic["colors"]) > 0) {
                             $basicsOnlyValues = array_filter($basic['colors'], function($value) {
                                 return $value !== '0';
